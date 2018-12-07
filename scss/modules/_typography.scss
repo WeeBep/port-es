@@ -1,0 +1,23 @@
+@import url('https://fonts.googleapis.com/css?family=Merriweather:400,900|Six+Caps');
+
+// Font family
+$ff-s: "Merriweather", serif;
+$ff-ss: "Six Caps", sans-serif;
+
+// Font weight
+$fw-n: 400;
+$fw-b: 900;
+
+$letter-spacing: 10px;
+
+// Hacemos una funcion ya que estos estilos van casi siempre juntos en este proyecto (los argumentos les ponemos valores por defecto para no tener que especificarlos a todos)
+// El letter-spacing lo hacemos relativo al tamaño de letra del elemento (em)
+@mixin sans-serif($fs, $ls: .15em, $color: $dark-gray, $tt: uppercase, $lh: 1) {
+    font-size: $fs;
+    letter-spacing: $ls;
+    color: $color;
+    text-transform: $tt;
+    line-height: $lh;
+    font-family: $ff-ss;
+    font-weight: $fw-n;
+}

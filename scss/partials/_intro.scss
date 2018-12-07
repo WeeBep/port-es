@@ -1,0 +1,45 @@
+.intro{
+    display: flex;
+    color: rgba($white, .7);
+
+    h2{
+        color: $white;
+
+        // La linea chiquita
+        &::after{
+            content: "";
+            width: 20%;
+            height: 1px;
+            background: rgba($white, .5);
+            display: block;
+            // Le tengo que restar margin de abajo ya que le puse por defecto margin al texto
+            margin: .8em auto -.2em;
+        }
+    }
+
+    // Esto lo que hace es ejecutar el codigo de adentro solo si el navegador soporta la propiedad que le pongamos entre parentesis
+    @supports(display: grid){
+        display: grid;
+        grid-template-columns: 1fr minmax(auto, 30em) 1fr;
+    }
+
+    .intro-middle{
+        background: $dark-blue;
+        padding: 2.5em;
+        text-align: center;
+        // Centramos el texto interior
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+    }
+
+    .intro-left img,
+    .intro-right img{
+        // Con esto hacemos que actuen como un bg-size cover
+        object-fit: cover;
+        min-height: 100%;
+        min-width: 100%;
+        // Sin esto al agrandarlas quedan un poquito mas chicas que el cuadrado central
+        display: block;
+    } 
+}

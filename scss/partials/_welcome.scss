@@ -1,0 +1,56 @@
+.welcome{
+    background: url(../img/header-bg.png);
+    background-size: cover;
+    background-position: center;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    // Para ubicar el icono hamburger
+    position: relative;
+    // Para cuando el menu lo desplace
+    transition: transform ease-out .3s;
+    // Esto es para evitar un bug en chrome con las transiciones en disp movil
+    -webkit-transform: translateZ(0);
+
+    h1{
+        font-size: 1.5rem;
+        font-weight: $fw-n;
+        color: $dark-blue;
+        line-height: 2;
+        text-align: center;
+
+        @include mq{
+            font-size: 2vw;
+        }
+
+        span{
+            @include sans-serif($fs: 5.5rem, $color: $accent);
+            display: block;
+
+            @include mq{
+                // Crece con la pantalla
+                font-size: 10vw;
+            }
+        }
+
+        &::before,
+        &::after{
+            content: "";
+            // Sin display block o position absolute no se ve
+            display: block;
+            width: 80%;
+            height: 1px;
+            background: $dark-blue;
+        }
+
+        &::before{
+            // La centramos y le ponemos margin bottom
+            margin: 0 auto 2em;
+        }
+
+        &::after{
+            margin: 2em auto 0;
+        }
+    }
+}

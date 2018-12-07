@@ -1,0 +1,21 @@
+@mixin container($width: 90%, $max-width: 50em){
+    width: $width;
+    margin: 0 auto;
+    max-width: $max-width;
+}
+
+@mixin clearfix{
+    &::after{
+        content: "";
+        display: block;
+        clear: both;
+    }
+}
+
+// Media Queries
+@mixin mq($width: 50em){
+    @media(min-width: $width){
+        // Esto va a ser reemplazado por lo que pongamos al incluir el mixin
+        @content;
+    }
+}

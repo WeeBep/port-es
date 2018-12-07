@@ -1,0 +1,75 @@
+.about-me{
+    @include container;
+    @include clearfix;
+
+    margin-top: 5em;
+    margin-bottom: 5em;
+}
+
+.about-img{
+    max-height: 25em;
+
+    // Esto solo entra si el navegador no soporta el grid, podria borrarlo tranquilamente
+    @media(min-width: 42em){
+        float: left;
+        margin-right: 1em;
+    }
+}
+
+.about-title{
+    margin-bottom: 0.25em;
+}
+
+.about-subtitle{
+    margin: 0.5em 0;
+}
+
+// Aca solo dejamos lo que tiene que ver con grid
+@supports(display: grid){
+    .about-me{
+        display: grid;
+        // Le damos nombre a las lineas del grid
+        grid-template-columns: [port-start] minmax(6em, 1fr) [name-start] minmax(6em, 1fr) [img-end] 2fr [port-end];
+
+        @include mq{
+            grid-column-gap: .7em;
+        }
+    }
+
+    .about-img{
+        // Ubicamos la imagen usando el nombre de las lineas
+        grid-column: port-start / img-end;
+        // Con esto forzamos a la imagen y al titulo a estar en la misma row aunque tengan que superponerse
+        grid-row: 1 / 2;
+
+        // Con esto el titulo se va para arriba, ya que se generan mas rows
+        @include mq{
+            grid-row: 1 / 4;
+        }
+    }
+
+    .about-title{
+        grid-column: name-start / port-end;
+        grid-row: 1 / 2;
+        align-self: end;
+    }
+
+    .about-subtitle,
+    .about-text {
+        grid-column: port-start / port-end;
+
+        @include mq{
+            grid-column: image-end / port-end;
+        }
+    }
+
+    // Acomodamos todo para que no haya overlapping
+    .about-subtitle{
+        grid-row: 2 / 3;
+    }
+
+    .about-text{
+        grid-row: 3 / 4;
+    }
+
+}

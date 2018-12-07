@@ -1,0 +1,90 @@
+// Este nav se puede mejorar mucho, me gustaria q ocupara toda la pantalla y el botoncito tuviera la animacion de hamburger a X. Tambien tendria q agregar el smoothscroll
+.menu-button{
+    position: absolute;
+    top: 3em;
+    left: 3em;
+    background: transparent;
+    border: 0;
+    transition: transform ease-in-out .3s;
+    cursor: pointer;
+    outline: 0;
+}
+
+nav ul{
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    justify-content: space-around;
+    background: $accent;
+}
+
+nav{
+    // Toma el relative de .welcome
+    // Seria mejor ponerle position fixed pero en chrome de dispositivos moviles se bugea al abrir y cerrar, por lo que lo cambiamos por absolute
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 15%;
+    z-index: 10;
+    // Lo sacamos de la pantalla
+    transform: translateX(-100%);
+    transition: transform ease-out .3s;
+}
+
+nav li{
+    text-align: center;
+    transition: background .25s;
+    
+    // Para que no le ponga el borde al ultimo
+    &:not(:last-of-type){
+        border-bottom: 1px solid $dark-blue;
+    }
+}
+
+nav li:hover{
+    background: rgba($dark-blue, .5);
+}
+
+nav a{
+    display: inline-block;
+    @include sans-serif($fs: 4rem, $color: $dark-blue);
+    text-decoration: none;
+    padding: calc(100vh / 8) 0;
+    // Para que no interfiera con el padding
+    line-height: 0;
+    width: 100%;
+}
+
+.close-icon{
+    display: none;
+}
+
+.nav-is-open{
+    // Esto hace que no haya scroll al tener el menu abierto
+    overflow-y: hidden;
+
+    nav{
+        transform: translateX(0);
+    }
+
+    .welcome{
+        // 85% es el espacio que deja sin tapar el nav
+        transform: translateX(85%);
+    }
+
+    .close-icon{
+        display: block;
+    }
+
+    .hamburger{
+        display: none;
+    }
+
+    .menu-button{
+        transform: translateX(-70%);
+    }
+}

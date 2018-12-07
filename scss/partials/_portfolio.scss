@@ -1,0 +1,243 @@
+.portfolio{
+    text-align: center;
+    background: $light-gray;
+    padding: 5em 0;
+}
+
+// Esto es solo en caso de que no funcione grid en el navegador, se puede borrar tranquilamente
+.portfolio-items{
+    display: flex;
+    flex-wrap: wrap;
+    @include container($max-width: 75em);
+}
+
+.portfolio-item{
+    position: relative;
+    overflow: hidden;
+
+    // grow shrink basis
+    flex: 1 1 20em;
+
+    img{
+        // Esto les saca un espacio chiquito que tienen entre ellas
+        display: block;
+    }
+
+    figcaption{
+        position: absolute;
+        // Lo hacemos desaparecer
+        top: 100%;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        padding: 2em;
+        background: rgba($accent, .75);
+        color: $white;
+        text-align: left;
+        display: flex;
+        flex-direction: column;
+        transition: top ease-in-out 250ms;
+    }
+
+    // El focus me permite que cuando este desde el celular, como el hover no funciona, pueda hacer click sobre la imagen para ver mas info
+    &:hover figcaption,
+    &:focus figcaption{
+        top: 0;
+    }
+}
+
+.portfolio-title{
+    color: $white;
+    font-size: 2.5rem;
+    // Esto hace que tire todo lo que tiene abajo hasta lo mas abajo posible
+    margin-bottom: auto;
+}
+
+.portfolio-desc{
+    // Escondemos la descripcion en las mas chiquitas
+    display: none;
+}
+
+.portfolio-link{
+    color: $white;
+    font-weight: $fw-b;
+    font-size: 1.1rem;
+    text-decoration: none;
+    border-bottom: 3px solid $white;
+    align-self: flex-start;
+
+    // Flechita
+    &::after{
+        content: url(../img/arrow-white.svg);
+        display: inline-block;
+        height: .8em;
+        width: .8em;
+        margin-left: 0.5em;
+    }
+}
+
+@supports (display: grid){
+    .portfolio-items{
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+
+        @include mq{
+            grid-template-columns: repeat(4, 1fr);
+        }
+
+        .featured{
+            // Esto es para que la que tenga esta clase este siempre arriba de todo y sea mas grande
+            grid-column: 1 / span 2;
+            grid-row: 1 / span 2;
+
+            // Hacemos el titulo mas grande en el featured
+            .portfolio-title{
+                font-size: 5rem;
+            }
+
+            .portfolio-desc{
+                display: block;
+            }
+        }
+    }
+}
+
+.portfolio-modal{
+    position: fixed;
+    top: 2em;
+    bottom: 2em;
+    left: 2em;
+    right: 2em;
+    background: $white;
+    z-index: 11;
+    // Oscurecemos lo de atras
+    box-shadow: 0 0 0 50em rgba(#000, .5);
+    // Le damos scroll al contenido
+    overflow-y: scroll;
+    // Por cualquier cosa que se salga
+    overflow-x: hidden;
+    max-width: 700px;
+    margin: auto;
+
+    display: none;
+
+    &.is-open{
+        display: block;
+    }
+}
+
+.modal-close{
+    background: $white;
+    border: 0;
+    position: fixed;
+    left: 1em;
+    top: 1em;
+    cursor: pointer;
+    outline: 0;
+    width: 2.5em;
+    height: 2.5em;
+    // Hay que centrarlo asi porque es un svg, seria mas facil usar FA
+    padding: 3px 0 0;
+    border-radius: 50%;
+    box-shadow: 0 0 5px rgba(#000, .5);
+}
+
+.portfolio-header{
+    text-align: left;
+    padding: 5em 0;
+    margin-bottom: 2em;
+}
+
+.portfolio-header:nth-of-type(1){
+    background: url(../img/portfolio-01.jpg);
+    background-size: cover;
+    background-position: center;
+}
+
+.portfolio-title-box{
+    background: rgba($accent, .75);
+    padding: 3em 0 3em 3em;
+    color: $white;
+    width: 70%;
+
+    .portfolio-title{
+        font-size: 3.7rem !important;
+        // Para poder ponerle un width del 100 al after y que sean del mismo largo
+        display: inline-block;
+
+        &::after{
+            content: "";
+            display: block;
+            height: 1px;
+            margin: .5em 0;
+            background: $white;
+            width: 90%;
+        }
+    }
+}
+
+.portfolio-subtitle{
+    font-size: .9rem;
+}
+
+.portfolio-content{
+    text-align: left;
+    width: 85%;
+    margin: 0 auto;
+    padding-bottom: 2em;
+}
+
+.portfolio-full-width{
+    width: 100vw;
+    // Con esto le sacamos el max width que tenian por defecto
+    max-width: initial;
+    // La centramos ya que no estaba en el medio porque tiene padding el padre
+    margin: 2em -3em;
+    // Para que no sea tan ancha
+    height: 20vh;
+    // Para que no se deforme
+    object-fit: cover;
+}
+
+.portfolio-pull-left{
+    margin-bottom: 2em;
+}
+
+@include mq{
+    .portfolio-full-width{
+        width: 850px;
+    }
+
+    .portfolio-pull-left{
+        width: 65%;
+        float: left;
+        margin-right: 2em;
+        margin-bottom: 2em;
+    }
+    
+    .modal-close{
+        padding: 5px 3px 0;
+    }
+
+    p{
+        font-size: 1rem;
+    }
+}
+
+@keyframes modalIn{
+    0%{
+        opacity: 0;
+    }
+    100%{
+        opacity: 1;
+    }
+}
+
+@keyframes modalOut{
+    0%{
+        opacity: 1;
+    }
+    100%{
+        opacity: 0;
+    }
+}
